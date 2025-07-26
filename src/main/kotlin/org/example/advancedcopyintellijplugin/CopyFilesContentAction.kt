@@ -1,6 +1,8 @@
 package org.example.advancedcopyintellijplugin
 
 import com.intellij.icons.AllIcons
+import com.intellij.notification.NotificationGroupManager
+import com.intellij.notification.NotificationType
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -19,25 +21,39 @@ class CopyFilesContentAction : AnAction(
 
     override fun actionPerformed(e: AnActionEvent) {
         val files = e.getData(CommonDataKeys.VIRTUAL_FILE_ARRAY)
-
         val projectRoot = e.project?.basePath ?: ""
         val builder = StringBuilder()
+        var totalFiles = 0
+
         if (files != null) {
             for (file in files) {
-                appendFileOrDirectory(builder, file, projectRoot)
+                totalFiles += appendFileOrDirectory(builder, file, projectRoot)
             }
         }
 
         CopyPasteManager.getInstance()
             .setContents(StringSelection(builder.toString()))
+
+        val message = if (totalFiles > 0) {
+            "$totalFiles file${if (totalFiles > 1) "s" else ""} copied to clipboard!"
+        } else {
+            "No files found to copy."
+        }
+
+        NotificationGroupManager.getInstance()
+            .getNotificationGroup("FilesCopierNotificationGroup")
+            .createNotification(message, NotificationType.INFORMATION)
+            .notify(e.project)
     }
 
     /**
-     * Add content while iterating through files or directories
+     * Add content while iterating through files or directories.
+     * @return number of files processed
      */
-    private fun appendFileOrDirectory(builder: StringBuilder, root: VirtualFile, projectRoot: String) {
+    private fun appendFileOrDirectory(builder: StringBuilder, root: VirtualFile, projectRoot: String): Int {
         val queue = ArrayDeque<VirtualFile>()
         queue.add(root)
+        var count = 0
 
         while (queue.isNotEmpty()) {
             val file = queue.removeFirst()
@@ -45,8 +61,10 @@ class CopyFilesContentAction : AnAction(
                 queue.addAll(file.children)
             } else {
                 appendFileContent(builder, file, projectRoot)
+                count++
             }
         }
+        return count
     }
 
     /**
