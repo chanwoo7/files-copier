@@ -12,6 +12,9 @@ import java.awt.datatransfer.StringSelection
 import java.nio.charset.StandardCharsets
 
 
+/**
+ * An action to copy the content of selected files to the clipboard.
+ */
 class CopyFilesContentAction : AnAction(
     "Copy Files Content to Clipboard"
 ) {
@@ -66,7 +69,7 @@ class CopyFilesContentAction : AnAction(
             if (file.isDirectory) {
                 queue.addAll(file.children)
             } else {
-                if (visited.add(file.path)) {
+                if (visited.add(file.path) && isValidFile(file)) {
                     appendFileContent(builder, file, projectRoot)
                     count++
                 }
@@ -90,5 +93,15 @@ class CopyFilesContentAction : AnAction(
             }
         )
         builder.append("\n\n\n")
+    }
+
+    /**
+     * Check if the file is valid for copying.
+     */
+    private fun isValidFile(file: VirtualFile): Boolean {
+        val name = file.name
+        return !name.equals(".DS_Store", ignoreCase = true) &&
+                !name.endsWith("~") &&
+                !name.startsWith(".")
     }
 }
