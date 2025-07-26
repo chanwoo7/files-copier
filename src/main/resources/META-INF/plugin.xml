@@ -1,18 +1,7 @@
-<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>org.example.advanced-copy-intellij-plugin</id>
-
-    <!-- Public plugin name should be written in Title Case.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <id>com.chanwoo7.files-copier</id>
     <name>Files Copier</name>
-
-    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor email="chanwoo9987@gmail.com" url="https://github.com/chanwoo7">Chanwoo Lee</vendor>
-
-    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
-         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description>
     <![CDATA[
         Files Copier is a simple yet powerful productivity tool for JetBrains IDEs.
@@ -30,24 +19,17 @@
         This plugin is ideal for developers who need to quickly share code snippets, export multiple files for AI assistance, or prepare code reviews efficiently.
     ]]>
     </description>
-
-    <!-- Product and plugin compatibility requirements.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
-
     <actions>
         <action
             id="CopyFilesContentAction"
-            class="org.example.advancedcopyintellijplugin.CopyFilesContentAction"
+            class="com.chanwoo7.filescopier.CopyFilesContentAction"
             text="Copy Files to Clipboard"
             description="Copy files content in custom format"
         >
             <add-to-group group-id="NavBarToolBar" anchor="last"/>
         </action>
     </actions>
-
-    <!-- Extension points defined by the plugin.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <notificationGroup id="FilesCopierNotificationGroup" displayType="BALLOON" isLogByDefault="false"/>
     </extensions>

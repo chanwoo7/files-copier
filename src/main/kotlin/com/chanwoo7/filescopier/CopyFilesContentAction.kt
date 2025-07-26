@@ -1,4 +1,4 @@
-package org.example.advancedcopyintellijplugin
+package com.chanwoo7.filescopier
 
 import com.intellij.icons.AllIcons
 import com.intellij.notification.NotificationGroupManager

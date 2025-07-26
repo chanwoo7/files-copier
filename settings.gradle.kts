@@ -5,4 +5,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "advanced-copy-intellij-plugin"
+rootProject.name = "files-copier"
