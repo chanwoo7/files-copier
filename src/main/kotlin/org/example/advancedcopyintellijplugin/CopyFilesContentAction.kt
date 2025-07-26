@@ -23,11 +23,12 @@ class CopyFilesContentAction : AnAction(
         val files = e.getData(CommonDataKeys.VIRTUAL_FILE_ARRAY)
         val projectRoot = e.project?.basePath ?: ""
         val builder = StringBuilder()
+        val visited = mutableSetOf<String>()
         var totalFiles = 0
 
         if (files != null) {
             for (file in files) {
-                totalFiles += appendFileOrDirectory(builder, file, projectRoot)
+                totalFiles += appendFileOrDirectory(builder, file, projectRoot, visited)
             }
         }
 
@@ -50,7 +51,12 @@ class CopyFilesContentAction : AnAction(
      * Add content while iterating through files or directories.
      * @return number of files processed
      */
-    private fun appendFileOrDirectory(builder: StringBuilder, root: VirtualFile, projectRoot: String): Int {
+    private fun appendFileOrDirectory(
+        builder: StringBuilder,
+        root: VirtualFile,
+        projectRoot: String,
+        visited: MutableSet<String>
+    ): Int {
         val queue = ArrayDeque<VirtualFile>()
         queue.add(root)
         var count = 0
@@ -60,8 +66,10 @@ class CopyFilesContentAction : AnAction(
             if (file.isDirectory) {
                 queue.addAll(file.children)
             } else {
-                appendFileContent(builder, file, projectRoot)
-                count++
+                if (visited.add(file.path)) {
+                    appendFileContent(builder, file, projectRoot)
+                    count++
+                }
             }
         }
         return count
