@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "org.chanwoo7"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -33,6 +33,7 @@ tasks {
     patchPluginXml {
         sinceBuild.set("241")
         untilBuild.set("243.*")
+        version.set(project.version as String)
     }
 
     signPlugin {
