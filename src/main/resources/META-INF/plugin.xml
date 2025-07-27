@@ -28,6 +28,9 @@
             description="Copy files content in custom format"
         >
             <add-to-group group-id="NavBarToolBar" anchor="last"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt C"/>
+            <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta alt C"/>
         </action>
     </actions>
     <extensions defaultExtensionNs="com.intellij">
