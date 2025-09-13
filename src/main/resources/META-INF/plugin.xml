@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.chanwoo7.files-copier</id>
     <name>Files Copier</name>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <vendor email="chanwoo9987@gmail.com" url="https://github.com/chanwoo7">Chanwoo Lee</vendor>
     <description>
     <![CDATA[
