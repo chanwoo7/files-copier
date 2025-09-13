@@ -96,14 +96,14 @@ import React from 'react';
 export function Button() {
   return <button>Click me</button>;
 }
-````
+```
 
 ### src/utils/helper.ts
 
 ```typescript
 export const add = (a: number, b: number) => a + b;
 ```
-
+````
 
 ---
 
