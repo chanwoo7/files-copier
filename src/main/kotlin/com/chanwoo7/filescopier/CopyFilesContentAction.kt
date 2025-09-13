@@ -83,8 +83,36 @@ class CopyFilesContentAction : AnAction(
      */
     private fun appendFileContent(builder: StringBuilder, file: VirtualFile, projectRoot: String) {
         val relativePath = file.path.removePrefix("$projectRoot/")
+        val extension = file.extension ?: ""
+        val languageHint = when (extension.lowercase()) {
+            "kt" -> "kotlin"
+            "java" -> "java"
+            "js" -> "javascript"
+            "ts" -> "typescript"
+            "py" -> "python"
+            "rb" -> "ruby"
+            "go" -> "go"
+            "cpp", "cc", "cxx" -> "cpp"
+            "c" -> "c"
+            "cs" -> "csharp"
+            "php" -> "php"
+            "html", "htm" -> "html"
+            "css" -> "css"
+            "json" -> "json"
+            "xml" -> "xml"
+            "md" -> "markdown"
+            "sh" -> "bash"
+            "yml", "yaml" -> "yaml"
+            else -> ""
+        }
 
-        builder.append("[$relativePath]\n")
+        builder.append("### $relativePath\n")
+        if (languageHint.isNotEmpty()) {
+            builder.append("```$languageHint\n")
+        } else {
+            builder.append("```\n")
+        }
+
         builder.append(
             try {
                 String(file.contentsToByteArray(), StandardCharsets.UTF_8)
@@ -92,7 +120,7 @@ class CopyFilesContentAction : AnAction(
                 "// [Failed to read: ${e.message}]\n"
             }
         )
-        builder.append("\n\n\n")
+        builder.append("\n```\n\n")
     }
 
     /**
