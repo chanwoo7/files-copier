@@ -1,6 +1,6 @@
 # Files Copier (JetBrains Plugin)
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/chanwoo7/files-copier)](https://github.com/chanwoo7/files-copier/releases)
+[![GitHub release (latest by date)](https://img.shields.io/github/release/chanwoo7/files-copier)](https://github.com/chanwoo7/files-copier/releases)
 
 **Files Copier** is a powerful JetBrains plugin that copies the contents of selected files and folders in clean, well-formatted Markdown blocks directly to your clipboard.  
 Perfect for sharing code, preparing AI prompts, or documenting logic during reviews.
